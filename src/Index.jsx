@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
 
+import Grid from './Components/Grid';
+
 const reactContainer = document.getElementById("react-dom-container");
 
 function Index() {
     return (
         <>
-        <h1>Tic-tac-toe</h1>
-        <div id="ticTac"></div>
+        <h1>Tic-Tac-Toe</h1>
+        <Grid/>
         </>
     )
 }

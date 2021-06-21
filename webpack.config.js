@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
@@ -12,6 +13,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
+    new MiniCssExtractPlugin({
+      filename: path.join('bundle.css'),
+      chunkFilename: 'bundle.css',
+    })
   ],
   module: {
     rules: [
@@ -19,7 +24,7 @@ module.exports = {
         // string regex that matches all javascripts files in the project directory.
         test: /\.(js|jsx)$/,
         // exclude the node_modules folder.
-        exclude: /(node_modules)/,
+        exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
@@ -29,7 +34,25 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: false,
+            },
+          },
+        ],
+      },
     ],
+  },
+  resolve : {
+    extensions : [".jsx" , ".mjs", ".js", ".css"]
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
@@ -37,5 +60,6 @@ module.exports = {
     port: 9000,
     open: true,
     liveReload: true,
+    historyApiFallback : true
   },
 };
