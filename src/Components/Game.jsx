@@ -46,7 +46,7 @@ function Game() {
        setState({...state, zeroIsNext : !state.zeroIsNext})
    }
     return (
-    <div className = "game">
+    <div className = "game"> Tic Tac Toe
         <div className="game-board">
             <Grid squares={state.squares} onClick={(i)=>handleClick(i)}/>
         </div>

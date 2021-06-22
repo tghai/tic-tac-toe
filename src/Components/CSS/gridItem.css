@@ -3,7 +3,7 @@
     border: 1px solid  rgb(40, 7, 102);
     padding: 20px;
     font-size: 30px;
-    min-width: 30%;
-    min-height: auto;
+    width: 4rem;
+    height: 3rem;
     text-align: center;
 }

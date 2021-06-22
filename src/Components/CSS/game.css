@@ -1,5 +1,12 @@
 .game {
-    align-items: center;
+    display: grid;
+    text-align: center;
+    font-size: 2rem;
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 .game-board {
+    background-color: blanchedalmond;
+}
+#react-dom-container {
+    display: flex;
 }
