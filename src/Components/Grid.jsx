@@ -3,13 +3,15 @@ import GridItem from "./GridItem";
 import "./CSS/grid.css";
 
 function Grid(props) {
-  var i = 0;
-  var items = [];
-  while (i < 9) {
-    items.push(<GridItem key={i} index = {i}/>);
-    i++;
+  return  (
+  <div className="grid-container">
+  {
+  props.squares.map((square, index)=> {
+  return  <GridItem key={index} value={square} onClick= {()=>{props.onClick(index)}}/>
+  })
   }
-  return  (<div className = "grid-container">{items} </div>) ;
+  </div>
+  ) ;
 }
 
 Grid.displayName = "Grid";

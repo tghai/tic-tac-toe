@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "./CSS/gridItem.css";
-import Zero from "./Zero";
-import Cross from "./Cross";
-
 function GridItem(props) {
  
   return (
-    <div data-index= {props.index} className="grid-item" >
-      {props.state ? <Cross /> : null}
+    <div className="grid-item" onClick = {props.onClick}>
+      {props.value}
     </div>
   );
 }

@@ -62,4 +62,5 @@ module.exports = {
     liveReload: true,
     historyApiFallback : true
   },
+  devtool : 'eval-cheap-module-source-map'
 };
