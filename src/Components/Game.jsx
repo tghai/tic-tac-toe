@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Grid from './Grid';
 import Banner from './Banner';
-import './CSS/game.css'
+import '../CSS/game.css';
 function Game() {
     const[state, setState] = useState({
         squares : Array(9).fill(null),

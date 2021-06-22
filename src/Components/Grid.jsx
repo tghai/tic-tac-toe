@@ -1,6 +1,6 @@
 import React from "react";
 import GridItem from "./GridItem";
-import "./CSS/grid.css";
+import "../CSS/grid.css";
 
 function Grid(props) {
   return  (

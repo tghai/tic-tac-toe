@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
 import Game from './Components/Game';
-import './Components/CSS/game.css';
+import './CSS/game.css';
 
 const reactContainer = document.getElementById("react-dom-container");
 
