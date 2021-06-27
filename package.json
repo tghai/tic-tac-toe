@@ -4,7 +4,8 @@
   "description": "Multi-player game using react and websocket",
   "main": "index.js",
   "scripts": {
-    "build:dev": "webpack --watch | webpack serve"
+    "build:dev": "webpack --watch | webpack serve",
+    "start": "node ./Server/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/tghai/tic-tac-toe#readme",
   "dependencies": {
+    "antd": "^4.16.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
@@ -31,10 +33,12 @@
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.6",
     "html-webpack-plugin": "^5.3.1",
+    "http": "0.0.1-security",
     "mini-css-extract-plugin": "^1.6.0",
     "prop-types": "^15.7.2",
     "webpack": "^5.39.1",
     "webpack-cli": "^4.7.2",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "websocket": "^1.0.34"
   }
 }
