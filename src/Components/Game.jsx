@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { w3cwebsocket as W3CWebsocket } from "websocket";
-import "../CSS/game.css";
+
 import Banner from "./Banner";
 import Grid from "./Grid";
+
+import "../CSS/game.css";
+
 function Game() {
   const [state, setState] = useState({
     squares: Array(9).fill(null),
-    zeroIsNext: true,
+    zeroIsNext: true
   });
   function isWinner() {
     const winnerLines = [
@@ -51,34 +54,55 @@ function Game() {
     state.squares[i] = state.zeroIsNext ? "0" : "X";
     state.zeroIsNext = !state.zeroIsNext;
     setState(state);
-    client.send(JSON.stringify({
-        type : "message",
-        msg : state 
-    }));
+    client.send(
+      JSON.stringify({
+        type: "message",
+        state : state,
+        userName: userName
+      })
+    );
+
   }
 
   const client = new W3CWebsocket("ws://127.0.0.1:8000");
+  const userRef = useRef(null);
+  const [userName, setUserName] = useState({name : null, allowed: true});
+  const setName = () => {
+    setUserName( {...userName,name : userRef.current.value});
+  };
   useEffect(() => {
+    console.log(userName);
     client.onopen = () => {
       console.log("Client Connected");
     };
-    client.onmessage = ((message)=>{
-        const datafromServer =  JSON.parse(message.data);
-        console.log("Message !!! ", datafromServer);
-        setState(datafromServer.msg)
-    });
-  },[]);
+    client.onmessage = (message) => {
+      const datafromServer = JSON.parse(message.data);
+      console.log("Message !!! ", datafromServer);
+      setState(datafromServer.state);
+      // if(datafromServer.userName.allowed) {
+      // setUserName({...datafromServer.userName, allowed: false});
+      // }
+    };
+  }, []);
   return (
     <div className="game">
-      {" "}
-      Tic Tac Toe
-      <div className="game-board">
-        <Grid squares={state.squares} onClick={(i) => handleClick(i)} />
-      </div>
-      <div className="announcement">
-        {winner ? <Banner value={"Winner is : " + winner} /> : null}
-        {gameOver ? <Banner value="Game Over" /> : null}
-      </div>
+      {userName.name ? (
+        <>
+          {userName.name + ":  Tic Tac Toe"}
+          <div className="game-board">
+            <Grid squares={state.squares} onClick={(i) => handleClick(i)} />
+          </div>
+          <div className="announcement">
+            {winner ? <Banner value={"Winner is : " + winner} /> : null}
+            {gameOver ? <Banner value="Game Over" /> : null}
+          </div>
+        </>
+      ) : (
+        <>
+          <input type="text" ref={userRef} />
+          <button type="button" onClick={setName}></button>
+        </>
+      )}
     </div>
   );
 }
