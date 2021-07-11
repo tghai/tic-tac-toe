@@ -1,0 +1,28 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    margin: 100% 0px;
+    gap: 10px
+}
+button {
+    background-color: #3b4ea1;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  /* Add a hover effect for buttons */
+  button:hover {
+    opacity: 0.8;
+  }
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}

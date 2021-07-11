@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { w3cwebsocket as W3CWebsocket } from "websocket";
 
 import Banner from "./Banner";
 import Grid from "./Grid";
+import Login from "./Login";
 
 import "../CSS/game.css";
 
@@ -32,6 +33,7 @@ function Game() {
         return state.squares[a];
       }
     }
+    
     return null;
   }
 
@@ -61,14 +63,13 @@ function Game() {
         userName: userName
       })
     );
-
   }
 
   const client = new W3CWebsocket("ws://127.0.0.1:8000");
-  const userRef = useRef(null);
   const [userName, setUserName] = useState({name : null, allowed: true});
-  const setName = () => {
-    setUserName( {...userName,name : userRef.current.value});
+  const setName = (value) => {
+    setUserName( {...userName,name : value});
+    window.sessionStorage.setItem("userName", value);
   };
   useEffect(() => {
     console.log(userName);
@@ -79,29 +80,39 @@ function Game() {
       const datafromServer = JSON.parse(message.data);
       console.log("Message !!! ", datafromServer);
       setState(datafromServer.state);
-      // if(datafromServer.userName.allowed) {
-      // setUserName({...datafromServer.userName, allowed: false});
-      // }
     };
   }, []);
+  function resetState() {
+    setState({
+      squares: Array(9).fill(null),
+      zeroIsNext: true
+    });
+    client.send(
+      JSON.stringify({
+        type: "message",
+        state : {
+          squares: Array(9).fill(null),
+          zeroIsNext: true
+        },
+        userName: userName
+      })
+    );
+  }
   return (
     <div className="game">
       {userName.name ? (
         <>
-          {userName.name + ":  Tic Tac Toe"}
+          <div className="heading">{userName.name + " :  Tic Tac Toe"}</div>
           <div className="game-board">
             <Grid squares={state.squares} onClick={(i) => handleClick(i)} />
           </div>
           <div className="announcement">
-            {winner ? <Banner value={"Winner is : " + winner} /> : null}
-            {gameOver ? <Banner value="Game Over" /> : null}
+            {winner ? <Banner onClick={resetState} value={"Winner is : " + winner} /> : null}
+            {!winner && gameOver ?<Banner onClick={resetState} value="Game Over" />: null}
           </div>
         </>
       ) : (
-        <>
-          <input type="text" ref={userRef} />
-          <button type="button" onClick={setName}></button>
-        </>
+       <Login onClick={setName}/>
       )}
     </div>
   );
