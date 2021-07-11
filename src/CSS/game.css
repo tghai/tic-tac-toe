@@ -1,26 +1,30 @@
-.game {
-    display: flex;
-    flex-direction: column;
+body {
+  margin: 0;
 }
-
-
 #react-dom-container {
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    background-color: #417ee1b8;
-}
-.heading {
-    display: flex;
-    font-weight: bold;
-    font-size: xx-large;
-    padding: 10px;
-}
-.game-board{
-    align-self: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #417ee1b8;
 }
 
-.announcement{
-    margin: 10%;
+.game {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-board {
+  align-self: center;
+}
+
+.heading {
+  display: flex;
+  font-weight: bold;
+  font-size: xx-large;
+  padding: 10px;
+}
+
+.announcement {
+  margin: 10%;
 }
