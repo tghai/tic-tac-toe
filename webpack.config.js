@@ -55,6 +55,8 @@ module.exports = {
     extensions : [".jsx" , ".mjs", ".js", ".css"]
   },
   devServer: {
+    host : "0.0.0.0",
+    disableHostCheck: true,
     contentBase: path.join(__dirname, "dist"),
     compress: true,
     port: 9000,
